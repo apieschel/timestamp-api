@@ -19,15 +19,13 @@ app.get("/", function (req, res) {
 });
 
 app.get("/api/timestamp/", function (req, res) { 
-  let utc = new Date();
-  let unix = Date.parse(utc);
-  res.json({unix: unix, utc: utc.toUTCString()});
+  let date = new Date();
+  res.json({unix: date.getTime(), utc: date.toUTCString()});
 });
 
 app.get("/api/timestamp/:time", function (req, res) {
-  let utc = new Date(req.params.time);
-  let unix = Date.parse(req.params.time);  
-  res.json({unix: unix, utc: utc.toUTCString()});
+  let date = new Date(req.params.time); 
+  res.json({unix: date.getTime(), utc: date.toUTCString()});
 });
 
 // listen for requests :)
