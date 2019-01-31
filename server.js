@@ -19,8 +19,19 @@ app.get("/", function (req, res) {
 });
 
 app.get("/api/timestamp/", function (req, res) { 
-  let date = new Date();
-  res.json({unix: date.getTime(), utc: date.toUTCString()});
+  console.log(req.query.hasOwnProperty("date"));
+  if(req.query.hasOwnProperty("date")) {
+    if(req.query.date !== '') {
+      let date = new Date(req.query.date); 
+      res.json({unix: date.getTime(), utc: date.toUTCString()});
+    } else {
+      let date = new Date();
+      res.json({unix: date.getTime(), utc: date.toUTCString()});
+    }
+  } else {
+     let date = new Date();
+     res.json({unix: date.getTime(), utc: date.toUTCString()});
+  }
 });
 
 app.get("/api/timestamp/:time", function (req, res) {
