@@ -22,7 +22,11 @@ app.get("/api/timestamp/", function (req, res) {
   console.log(req.query.hasOwnProperty("date"));
   if(req.query.hasOwnProperty("date")) {
     if(req.query.date !== '') {
-      let date = new Date(req.query.date); 
+      let time = req.query.date;
+      if(!time.includes("-")) {
+        time = parseInt(req.query.date);
+      }
+      let date = new Date(time); 
       res.json({unix: date.getTime(), utc: date.toUTCString()});
     } else {
       let date = new Date();
@@ -36,7 +40,11 @@ app.get("/api/timestamp/", function (req, res) {
 
 
 app.get("/api/timestamp/:time", function (req, res) {
-  let date = new Date(req.params.time); 
+  let time = req.params.time;
+  if(!time.includes("-")) {
+    time = parseInt(req.params.time);
+  }
+  let date = new Date(time); 
   res.json({unix: date.getTime(), utc: date.toUTCString()});
 });
 
